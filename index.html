@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Danning Hao’s interactive desktop portfolio.">
+<meta name="theme-color" content="#f4efe3">
+<title>Danning Hao — Portfolio</title>
+<link rel="stylesheet" href="desktop.css">
+<script src="desktop.js" defer></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+<symbol id="folder" viewBox="0 0 32 32"><path fill="#714b00" d="M2 7h12l3 4h13v17H2z"/><path fill="#ffce49" d="M3 8h10l3 4h13v14H3z"/><path fill="#fff2a8" d="M3 13h26v2H3zM4 9h9v2H4z"/><path fill="#e09a15" d="M3 25h26v2H3z"/></symbol>
+<symbol id="computer" viewBox="0 0 32 32"><path fill="#353535" d="M3 2h26v21H3zM10 22h12v5h6v4H4v-4h6z"/><path fill="#dedbd1" d="M4 3h23v18H4zM11 22h10v5h5v2H5v-2h6z"/><path fill="#656565" d="M7 5h18v13H7z"/><path fill="#0c577a" d="M8 6h16v11H8z"/><path fill="#69c9dc" d="M9 7h14v1H9z"/><path fill="#23a555" d="M23 19h2v1h-2z"/></symbol>
+<symbol id="note" viewBox="0 0 32 32"><path fill="#3b405d" d="M6 2h15l6 6v22H6z"/><path fill="#fff" d="M7 3h13v7h6v19H7z"/><path fill="#b8c8e6" d="M21 4l4 5h-4zM10 13h13v2H10zM10 17h13v2H10zM10 21h10v2H10z"/></symbol>
+<symbol id="mail" viewBox="0 0 32 32"><path fill="#35486b" d="M2 6h28v21H2z"/><path fill="#fff8cf" d="M3 7h26v18H3z"/><path fill="none" stroke="#35486b" stroke-width="1.4" d="m3 8 13 10L29 8M3 24l9-9m17 9-9-9"/></symbol>
+<symbol id="artwork" viewBox="0 0 32 32"><path fill="#3b405d" d="M5 2h16l6 6v22H5z"/><path fill="#fff" d="M6 3h14v7h6v19H6z"/><path fill="#8cc5e8" d="M9 12h14v13H9z"/><path fill="#45943e" d="m9 25 5-9 4 6 2-3 3 6z"/><path fill="#ffb822" d="M19 14h2v2h-2z"/></symbol>
+<symbol id="flag" viewBox="0 0 32 32"><path fill="#f33d25" d="m5 5 11-3-2 11-11 3z"/><path fill="#7baa20" d="m18 2 11 4-2 10-11-3z"/><path fill="#3a78cb" d="m3 18 11-3-2 11-11 3z"/><path fill="#ffbf23" d="m16 15 11 3-2 11-11-3z"/></symbol>
+</svg>
+<main class="desktop" id="desktop" aria-label="Portfolio desktop">
+<button class="otter" id="otter" type="button" aria-label="Wave to the sea otter" aria-pressed="false">
+<svg viewBox="0 0 66 36" shape-rendering="crispEdges" aria-hidden="true">
+<path fill="var(--water)" d="M3 28h7v1H3zm8 3h16v1H11zm20 1h22v1H31zm23-3h8v1h-8zm-43-4h7v1h-7zm42 0h10v1H53zM6 34h12v1H6zm49-1h8v1h-8z"/>
+<path fill="#54372e" d="M6 20h4v2h4v2h8v-4h3v-3h7v-2h9v-3h3V8h4V6h9v2h4v4h2v9h-3v4h-5v2H30v-1H17v-1h-7v-2H6z"/>
+<path fill="#986246" d="M9 22h5v2h8v1H13v-1H9zm14 0h4v-4h6v-2h9v-3h3v-3h4V8h7v2h4v3h2v7h-3v4h-5v2H31v-1h-8z"/>
+<path fill="#c38a60" d="M28 20h5v-2h9v-2h4v4h-2v3h-5v2H28z"/>
+<path fill="#e8bb90" d="M46 13h3v-2h7v2h4v7h-2v3H48v-2h-3v-6z"/>
+<path fill="#f8d6ae" d="M49 17h8v1h2v3H47v-3h2z"/>
+<path class="otter-eyes" fill="#362723" d="M47 14h2v2h-2zm10 0h2v2h-2z"/>
+<path class="otter-happy" fill="#362723" d="M46 15h1v-1h2v1h1v1h-1v-1h-2v1h-1zm10 0h1v-1h2v1h1v1h-1v-1h-2v1h-1z"/>
+<path fill="#362723" d="M51 17h4v2h-1v2h-2v-2h-1z"/>
+<path fill="#754936" d="M23 20h3v2h3v2h-6v-1h-3v-2h3z"/>
+<path class="otter-paw" fill="#754936" d="M35 18h3v1h3v3h-2v1h-3v-1h-2v-3h1z"/>
+<path class="otter-heart" fill="#d37573" d="M39 5h2V4h2v1h2v2h-1v1h-1v1h-2V8h-1V7h-1z"/>
+</svg></button>
+<nav class="shortcuts" aria-label="Desktop shortcuts">
+<button class="shortcut" data-open="computer"><svg class="icon" aria-hidden="true"><use href="#computer"/></svg><span>My Computer</span></button>
+<button class="shortcut" data-open="work"><svg class="icon" aria-hidden="true"><use href="#folder"/></svg><span>Selected Project</span></button>
+<button class="shortcut" data-open="about"><svg class="icon" aria-hidden="true"><use href="#note"/></svg><span>About.txt</span></button>
+<button class="shortcut" data-open="contact"><svg class="icon" aria-hidden="true"><use href="#mail"/></svg><span>Contact</span></button>
+</nav>
+<div class="popup bevel" id="popup" hidden></div>
+</main>
+<footer class="taskbar" aria-label="Taskbar">
+<button class="start raised" id="start" aria-controls="start-menu" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#flag"/></svg>Start</button>
+<div class="tasks" id="tasks" aria-label="Open windows"></div>
+<button class="raised" id="show-desktop" aria-label="Show desktop" title="Show desktop" style="height:29px;padding:0 6px">▣</button>
+<time class="clock sunken" id="clock"></time>
+<div class="start-menu bevel" id="start-menu" hidden>
+<div class="start-rail" aria-hidden="true">Danning Hao 98</div>
+<div>
+<button data-open="work"><svg class="icon" aria-hidden="true"><use href="#folder"/></svg>Selected Project</button>
+<button data-open="about"><svg class="icon" aria-hidden="true"><use href="#note"/></svg>About.txt</button>
+<button data-open="contact"><svg class="icon" aria-hidden="true"><use href="#mail"/></svg>Contact</button>
+<hr>
+<button data-open="settings"><svg class="icon" aria-hidden="true"><use href="#computer"/></svg>Display Properties</button>
+<button data-toggle-theme aria-pressed="false">Dark mode</button>
+<button data-reset><svg class="icon" aria-hidden="true"><use href="#flag"/></svg>Reset desktop</button>
+</div></div>
+</footer>
+<template id="frame">
+<section class="window bevel" role="region" tabindex="-1">
+<div class="titlebar"><svg class="icon" aria-hidden="true"><use/></svg><h2></h2><div class="controls"><button class="raised" data-window="min" aria-label="Minimize" title="Minimize">_</button><button class="raised" data-window="max" aria-label="Maximize" title="Maximize">□</button><button class="raised" data-window="close" aria-label="Close" title="Close">×</button></div></div>
+<div class="win-body"></div>
+</section>
+</template>
+<template id="explorer">
+<div class="menubar" aria-label="Explorer commands"><button data-menu="file" aria-expanded="false"><u>F</u>ile</button><button data-menu="view" aria-expanded="false"><u>V</u>iew</button><button data-open="help"><u>H</u>elp</button></div>
+<div class="toolbar"><button class="raised" data-open="computer">← Up</button><span class="spacer"></span><button class="raised" data-view="icons" aria-pressed="true">▦ Icons</button><button class="raised" data-view="list" aria-pressed="false">☰ List</button></div>
+<div class="address"><span>Address</span><div class="path sunken"></div></div>
+<div class="workarea">
+<aside class="sidebar"><svg class="icon" aria-hidden="true"><use/></svg><h1></h1><div class="colorbar"></div><p></p></aside>
+<div class="files"><span class="label"></span><div class="file-grid"></div></div>
+</div>
+<div class="statusbar"><span class="sunken"></span><span class="sunken">Local portfolio</span></div>
+</template>
+<template id="about-doc"><div class="document"><h1>Danning Hao</h1><p>An index of digital projects, visual systems, and small experiments.</p><p>Explore my projects in Selected Project or find more on <a href="https://github.com/hhdning21">GitHub</a>.</p></div></template>
+<template id="contact-doc"><div class="document"><h1>Say hello.</h1><p><a href="mailto:hhdning21@gmail.com">hhdning21@gmail.com</a></p></div></template>
+<template id="help-doc"><div class="document"><h1>Desktop Help</h1><p>Click or tap an icon to open it. Drag a title bar to move a window, or double-click it to maximize or restore it.</p><p>Use the taskbar to switch between windows. In Selected Project, switch between Icons and List to browse the same files.</p><p>Right-click the wallpaper or use Start to open Display Properties.</p></div></template>
+<template id="settings-doc"><div class="document"><h1>Display Properties</h1><p>Color mode</p><div class="settings"><button class="raised" data-theme="light" aria-pressed="true">Light</button><button class="raised" data-theme="dark" aria-pressed="false">Dark</button></div></div></template>
+<template id="nearby-doc"><div class="document"><p><small>PROJECT 01 / CAMPUS DISCOVERY</small></p><h3>What’s Near Me</h3><p>A location-based web app for UBC students to find nearby restaurants, study spots, and campus resources.</p><p><small>Next.js · OpenStreetMap · Tailwind CSS</small></p><p><a href="https://whats-near-me.vercel.app/">Try What’s Near Me ↗</a> · <a href="https://github.com/hhdning21/whats-near-me">View source on GitHub ↗</a></p></div></template>
+<template id="asl-doc"><div class="document"><p><small>PROJECT 02 / COMPUTER VISION</small></p><h3>ASL Translator</h3><p>A webcam-based experiment that recognizes American Sign Language gestures using MediaPipe hand landmarks and a random forest classifier.</p><p><small>Python · MediaPipe · scikit-learn</small></p><p><a href="https://github.com/hhdning21/ASL-translator">View source on GitHub ↗</a></p></div></template>
+<template id="furry-doc"><div class="document"><p><small>PROJECT 03 / AUDIO &amp; INTERACTION</small></p><h3>Furry Sound</h3><p>A music visualizer and four-lane rhythm game with visual beat cues, a high-contrast mode, and keyboard or touch controls.</p><p><small>JavaScript · Web Audio API</small></p><p><a href="https://www.furrysound.tech/">Play Furry Sound ↗</a> · <a href="https://github.com/hhdning21/furry-sound">View source on GitHub ↗</a></p></div></template>
+<template id="pet-adopter-doc"><div class="document"><p><small>PROJECT 04 / DESKTOP APP</small></p><h3>Pet Adaptation App</h3><p>A Java desktop app for browsing pets available for adoption, submitting applications, and reporting stray animals. Adopters can record their pets’ stories, and the app saves data locally as JSON.</p><p><small>Java · JSON</small></p><p><a href="https://github.com/hhdning21/pet_adoption_app">View source on GitHub ↗</a></p></div></template>
+</body>
+</html>
