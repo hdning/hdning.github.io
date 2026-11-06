@@ -284,7 +284,14 @@ document.addEventListener('click',event => {
       updateTheme(theme === 'dark' ? 'light' : 'dark');
       start.focus();
     } else if (target.id === 'otter') {
-      target.setAttribute('aria-pressed', String(target.getAttribute('aria-pressed') !== 'true'));
+      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      for (const [index, ring] of [...target.querySelectorAll('.otter-ripple')].entries()) {
+        for (const animation of ring.getAnimations()) animation.cancel();
+        ring.animate([
+          {opacity: .75, transform: reducedMotion ? 'none' : 'scale(.72)'},
+          {opacity: 0, transform: reducedMotion ? 'none' : 'scale(1.22)'}
+        ], {duration: 950, delay: index * 180, easing: 'ease-out'});
+      }
     }
     else if (target.hasAttribute('data-reset')) resetDesktop();
     else if (target.id === 'show-desktop' || target.dataset.desktop) {

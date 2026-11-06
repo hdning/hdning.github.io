@@ -12,14 +12,7 @@ button:focus-visible,a:focus-visible{outline:1px dotted currentColor;outline-off
 .desktop:before{content:'';position:absolute;inset:0;background:radial-gradient(#fff3 1px,transparent 1px) 0 0/4px 4px;opacity:.2;pointer-events:none}
 .otter{position:absolute;right:5%;bottom:6%;width:clamp(132px,24vw,300px);padding:0;border:0;background:none;user-select:none}
 .otter svg{display:block;width:100%;height:auto;overflow:visible}
-.otter-paw{transform-box:fill-box;transform-origin:bottom right}
-.otter-happy,.otter-heart{opacity:0}
-.otter:hover .otter-paw{transform:translateY(-1px) rotate(-12deg)}
-.otter[aria-pressed=true] .otter-paw{transform:translateY(-3px) rotate(-35deg);animation:otter-wave .48s steps(3) 2 alternate}
-.otter[aria-pressed=true] .otter-eyes{opacity:0}
-.otter[aria-pressed=true] :is(.otter-happy,.otter-heart){opacity:1}
-@keyframes otter-wave{to{transform:translateY(-3px) rotate(-68deg)}}
-@media(prefers-reduced-motion:reduce){.otter[aria-pressed=true] .otter-paw{animation:none}}
+.otter-ripple{opacity:0;transform-box:fill-box;transform-origin:center}
 .shortcuts{position:absolute;top:18px;left:12px;display:grid;gap:13px;width:96px}
 .shortcut{border:0;background:none;color:inherit;display:grid;justify-items:center;gap:5px;padding:4px;min-height:65px}
 .shortcut span{padding:2px 3px}
