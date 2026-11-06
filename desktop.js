@@ -24,7 +24,7 @@ const entries = {
   about: {title:'About Me.txt', icon:'note', type:'Text document'},
   contact: {title:'Contact', icon:'mail', type:'Contact card'},
   settings: {title:'Display Properties', icon:'computer'},
-  terminal: {title:'Terminal', icon:'terminal'},
+  terminal: {title:'MS-DOS Prompt', icon:'terminal'},
   help: {title:'Desktop Help', icon:'note'}
 };
 function icon(name) {
@@ -108,6 +108,10 @@ function buildExplorer(entry) {
     const file = entries[id];
     const node = button(file.file ?? file.title,'open',id,file.icon);
     node.className = 'file';
+    if (entry === entries.work) {
+      node.dataset.preview = id;
+      node.setAttribute('aria-pressed','false');
+    }
     const type = document.createElement('small');
     type.textContent = file.type ?? 'File folder';
     node.append(type);
@@ -116,6 +120,21 @@ function buildExplorer(entry) {
   content.querySelector('.statusbar span').textContent = entry.files.length + ' objects';
   content.querySelector('.toolbar [data-open=computer]').disabled = entry.icon === 'computer';
   return content;
+}
+function selectProject(frame, id) {
+  const sidebar = frame.node.querySelector('.sidebar');
+  const entry = id ? entries[id] : entries.work;
+  sidebar.querySelector('use').setAttribute('href','#'+(id ? 'preview-'+id : entry.icon));
+  sidebar.querySelector('h1').textContent = entry.title;
+  sidebar.querySelector('p').textContent = id
+    ? document.getElementById(id+'-doc').content.querySelector('h3 + p').textContent
+    : entry.summary;
+  const open = sidebar.querySelector('.preview-open');
+  open.hidden = !id;
+  open.dataset.open = id ?? '';
+  for (const file of frame.node.querySelectorAll('[data-preview]')) {
+    file.setAttribute('aria-pressed',String(file.dataset.preview === id));
+  }
 }
 function openFrame(id) {
   closeMenus();
@@ -139,7 +158,7 @@ function openFrame(id) {
   taskbar.append(task);
   desktop.append(node);
   if (id === 'terminal') setupTerminal(frame);
-  const narrow = desktop.clientWidth <= 720;
+  const narrow = matchMedia('(max-width: 720px), (max-height: 460px)').matches;
   const margin = narrow ? 7 : 118;
   const top = narrow ? 77 : 44;
   const explorer = Boolean(entry.files);
@@ -173,6 +192,10 @@ function setupTerminal(frame) {
     projects: ['Open Selected Project', () => openFrame('work')],
     about: ['Open About Me.txt', () => openFrame('about')],
     contact: ['Open Contact', () => openFrame('contact')],
+    otter: ['Make the sea otter splash', () => {
+      document.getElementById('otter').click();
+      print('Splash!');
+    }],
     cls: ['Clear the screen', () => log.replaceChildren()],
     exit: ['Close this terminal', () => closeFrame(frame)]
   };
@@ -217,6 +240,8 @@ function filterWork(frame, category) {
     file.hidden = category !== 'all' && entries[file.dataset.open].category !== category;
     if (!file.hidden) count++;
   }
+  const selected = frame.node.querySelector('[data-preview][aria-pressed=true]');
+  if (selected?.hidden) selectProject(frame,null);
   const label = {all:'All projects',apps:'Apps',lab:'Experiments'}[category];
   frame.node.querySelector('.files .label').textContent = label.toUpperCase();
   frame.node.querySelector('.statusbar span').textContent = count + (count === 1 ? ' object' : ' objects');
@@ -273,6 +298,8 @@ for (const name of ['pointerup','pointercancel','lostpointercapture']) {
   desktop.addEventListener(name,()=>{drag = null});
 }
 desktop.addEventListener('dblclick',event => {
+  const file = event.target.closest('[data-preview]');
+  if (file) openFrame(file.dataset.preview);
   const bar = event.target.closest('.titlebar');
   if (bar && !event.target.closest('button') && active) maximize(active);
 });
@@ -311,6 +338,15 @@ document.addEventListener('click',event => {
     const items = menu === 'view'
       ? [button('Icons','view','icons'),button('List','view','list')]
       : [button('Open project folder','open','work','folder'),button('Close window','window','close')];
+    if (frame?.id === 'about') {
+      const notepadItems = {
+        file: [button('Close window','window','close')],
+        edit: [button('Select all','notepad','select')],
+        view: [button('Toggle word wrap','notepad','wrap')]
+      };
+      showPopup(notepadItems[menu],rect.left,rect.bottom,target);
+      return;
+    }
     if (menu === 'view' && frame?.id === 'work') {
       items.push(document.createElement('hr'),button('All projects','filter','all'),button('Apps','filter','apps'),button('Experiments','filter','lab'));
     }
@@ -318,7 +354,21 @@ document.addEventListener('click',event => {
   } else {
     const returnFocus = popup.contains(target) ? menuTrigger : null;
     closeMenus();
-    if (open) openFrame(open);
+    if (target.dataset.preview && event.detail > 0 && event.pointerType !== 'touch'
+        && matchMedia('(pointer: fine)').matches && frame.node.querySelector('.sidebar').offsetWidth) {
+      selectProject(frame,target.dataset.preview);
+    } else if (open) openFrame(open);
+    else if (target.dataset.notepad && frame?.id === 'about') {
+      const paper = frame.node.querySelector('.notepad');
+      if (target.dataset.notepad === 'wrap') paper.classList.toggle('nowrap');
+      else {
+        const range = document.createRange();
+        range.selectNodeContents(paper);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
     else if (task) {
       const selected = frames.get(task);
       if (selected === active) hideFrame(selected);
@@ -378,7 +428,7 @@ tick();
 setInterval(tick,10000);
 function openFromHash() {
   const id = location.hash.slice(1);
-  openFrame(['work','about','contact'].includes(id) ? id : 'work');
+  openFrame(['work','about','contact','terminal',...entries.work.files].includes(id) ? id : 'work');
 }
 window.addEventListener('hashchange',openFromHash);
 openFromHash();

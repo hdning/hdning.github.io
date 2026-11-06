@@ -80,7 +80,7 @@ button:focus-visible,a:focus-visible{outline:1px dotted currentColor;outline-off
 .document small{color:#555}
 .settings{display:flex;gap:7px;flex-wrap:wrap}
 .settings button{padding:7px 10px}
-@media(max-width:720px){.shortcuts{display:flex;left:5px;right:5px;top:7px;width:auto;gap:2px;justify-content:space-around}.shortcut{font-size:11px;min-width:0}.shortcut .icon{width:28px;height:28px}.workarea{grid-template-columns:126px minmax(0,1fr)}.sidebar{padding:12px 8px}}
+@media(max-width:720px),(max-height:460px){.shortcuts{display:flex;left:5px;right:5px;top:7px;width:auto;gap:2px;justify-content:space-around}.shortcut{font-size:11px;min-width:0}.shortcut .icon{width:28px;height:28px}.workarea{grid-template-columns:126px minmax(0,1fr)}.sidebar{padding:12px 8px}}
 @media(max-width:520px){.workarea{grid-template-columns:1fr}.sidebar{display:none}.files{padding:10px}.file-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.toolbar button{padding:5px}.statusbar span+span{display:none}}
 
 :root[data-theme=dark]{color-scheme:dark;color:#f0eae0;--desktop:#22232a;--chrome:#44434a;--water:#628d94}
@@ -112,3 +112,15 @@ button:focus-visible,a:focus-visible{outline:1px dotted currentColor;outline-off
 .terminal-line{display:flex;align-items:baseline;gap:.6em}
 .terminal-line input{flex:1;min-width:0;border:0;padding:0;background:transparent;color:#ecf4e8;caret-color:#b7e2a8}
 .terminal-line input:focus-visible{outline:1px dotted #b7e2a8;outline-offset:1px}
+
+.file[aria-pressed=true]{background:#000080;color:white;border-color:#000080}
+.file[aria-pressed=true] small{color:#e4ebff}
+.preview-open{padding:5px 7px}
+.launch{display:inline-block;padding:4px 10px;margin-right:6px;text-decoration:none;font-weight:bold}
+.document .launch{color:inherit}
+.notepad h1{font:inherit;font-weight:bold}
+.notepad.nowrap{white-space:nowrap}
+.terminal-line{position:relative}
+.terminal-caret{position:absolute;left:calc(13ch + .6em);width:.65em;height:1em;top:.22em;background:#b7e2a8;pointer-events:none;display:none}
+.terminal-line input:focus:placeholder-shown{caret-color:transparent}
+.terminal-line input:focus:placeholder-shown + .terminal-caret{display:block}

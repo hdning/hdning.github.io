@@ -6,8 +6,8 @@
 <meta name="description" content="Danning Hao’s interactive desktop portfolio.">
 <meta name="theme-color" content="#f4efe3">
 <title>Danning Hao — Portfolio</title>
-<link rel="stylesheet" href="desktop.css">
-<script src="desktop.js" defer></script>
+<link rel="stylesheet" href="desktop.css?v=win98-2">
+<script src="desktop.js?v=win98-2" defer></script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -17,6 +17,10 @@
 <symbol id="mail" viewBox="0 0 32 32"><path fill="#35486b" d="M2 6h28v21H2z"/><path fill="#fff8cf" d="M3 7h26v18H3z"/><path fill="none" stroke="#35486b" stroke-width="1.4" d="m3 8 13 10L29 8M3 24l9-9m17 9-9-9"/></symbol>
 <symbol id="artwork" viewBox="0 0 32 32"><path fill="#3b405d" d="M5 2h16l6 6v22H5z"/><path fill="#fff" d="M6 3h14v7h6v19H6z"/><path fill="#8cc5e8" d="M9 12h14v13H9z"/><path fill="#45943e" d="m9 25 5-9 4 6 2-3 3 6z"/><path fill="#ffb822" d="M19 14h2v2h-2z"/></symbol>
 <symbol id="terminal" viewBox="0 0 32 32"><path fill="#2a2927" d="M2 4h28v24H2z"/><path fill="#c8c5ba" d="M3 5h26v22H3z"/><path fill="#203976" d="M4 6h24v4H4z"/><path fill="#191c19" d="M4 11h24v15H4z"/><path fill="#b7e2a8" d="m8 14 4 3-4 3-1-1 3-2-3-2zm6 5h6v1h-6z"/></symbol>
+<symbol id="preview-nearby" viewBox="0 0 32 32"><path fill="#d9eac9" d="M2 2h28v28H2z"/><path fill="#fdf4df" d="M2 11h28v3H2zm12-9h3v28h-3zM2 23h28v2H2z"/><path fill="#bd5249" d="M19 7h6v2h2v7h-2v3h-2v3h-2v-3h-2v-3h-2V9h2z"/><path fill="#fff3e0" d="M20 10h4v4h-4z"/></symbol>
+<symbol id="preview-asl" viewBox="0 0 32 32"><path fill="#30384f" d="M2 2h28v28H2z"/><path fill="#efbc83" d="M8 17h3v3h2V8h3v7h2V5h3v10h2V9h3v13h-2v4H13v-3h-2v-3H8z"/><path fill="#fff4c0" d="M13 8h2v2h-2zm5-3h2v2h-2zm5 4h2v2h-2z"/></symbol>
+<symbol id="preview-furry" viewBox="0 0 32 32"><path fill="#29243f" d="M2 2h28v28H2z"/><path fill="#8ddcea" d="M6 17h3v8H6zm6-8h3v16h-3z"/><path fill="#e4a0ed" d="M18 13h3v12h-3zm6-7h3v19h-3z"/></symbol>
+<symbol id="preview-pet-adopter" viewBox="0 0 32 32"><path fill="#f5dcbd" d="M2 2h28v28H2z"/><path fill="#9a6751" d="M6 12h4v5H6zm5-5h4v6h-4zm6 0h4v6h-4zm5 5h4v5h-4zm-10 5h8v3h3v5H9v-5h3z"/></symbol>
 <symbol id="flag" viewBox="0 0 32 32"><path fill="#f33d25" d="m5 5 11-3-2 11-11 3z"/><path fill="#7baa20" d="m18 2 11 4-2 10-11-3z"/><path fill="#3a78cb" d="m3 18 11-3-2 11-11 3z"/><path fill="#ffbf23" d="m16 15 11 3-2 11-11-3z"/></symbol>
 </svg>
 <main class="desktop" id="desktop" aria-label="Portfolio desktop">
@@ -72,24 +76,24 @@
 <div class="toolbar"><button class="raised" data-open="computer">← Up</button><span class="spacer"></span><button class="raised" data-view="icons" aria-pressed="true">▦ Icons</button><button class="raised" data-view="list" aria-pressed="false">☰ List</button></div>
 <div class="address"><span>Address</span><div class="path sunken"></div></div>
 <div class="workarea">
-<aside class="sidebar"><svg class="icon" aria-hidden="true"><use/></svg><h1></h1><div class="colorbar"></div><p></p></aside>
+<aside class="sidebar"><svg class="icon" aria-hidden="true"><use/></svg><h1></h1><div class="colorbar"></div><p aria-live="polite"></p><button type="button" class="raised preview-open" hidden>Open project</button></aside>
 <div class="files"><span class="label"></span><div class="file-grid"></div></div>
 </div>
 <div class="statusbar"><span class="sunken"></span><span class="sunken">Local portfolio</span></div>
 </template>
-<template id="about-doc"><div class="document"><h1>Hey, I'm Danning Hao</h1><p>Here's an index of my digital projects, visual systems, and small random stuffs.</p><p>Find out more on my github: <a href="https://github.com/hhdning21">hhdning21</a>!</p></div></template>
+<template id="about-doc"><div class="menubar" aria-label="Notepad commands"><button data-menu="file" aria-expanded="false"><u>F</u>ile</button><button data-menu="edit" aria-expanded="false"><u>E</u>dit</button><button data-menu="view" aria-expanded="false"><u>V</u>iew</button></div><div class="document notepad"><h1>Hey, I'm Danning Hao</h1><p>Here's an index of my digital projects, visual systems, and small random stuffs.</p><p>Find out more on my github: <a href="https://github.com/hhdning21">hhdning21</a>!</p></div></template>
 <template id="contact-doc"><div class="document"><h1>say hello to me at:</h1><p><a href="mailto:hhdning21@gmail.com">hhdning21@gmail.com</a></p></div></template>
 <template id="terminal-doc">
 <div class="terminal">
 <div class="terminal-log" role="log" aria-label="Terminal output"><div>PORTFOLIO COMMAND PROMPT<br>Type help to see available commands.</div></div>
-<form class="terminal-line"><span aria-hidden="true">C:\Portfolio&gt;</span><input type="text" aria-label="Terminal command" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="160"></form>
+<form class="terminal-line"><span aria-hidden="true">C:\Portfolio&gt;</span><input type="text" aria-label="Terminal command" placeholder=" " autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" maxlength="160"><span class="terminal-caret" aria-hidden="true"></span></form>
 </div>
 </template>
 <template id="help-doc"><div class="document"><h1>Desktop Help</h1><p>Click or tap an icon to open it. Drag a title bar to move a window, or double-click it to maximize or restore it.</p><p>Use the taskbar to switch between windows. In Selected Project, switch between Icons and List to browse the same files.</p><p>Right-click the wallpaper or use Start to open Display Properties.</p></div></template>
 <template id="settings-doc"><div class="document"><h1>Display Properties</h1><p>Color mode</p><div class="settings"><button class="raised" data-theme="light" aria-pressed="true">Light</button><button class="raised" data-theme="dark" aria-pressed="false">Dark</button></div></div></template>
-<template id="nearby-doc"><div class="document"><p><small>PROJECT 01 / CAMPUS DISCOVERY</small></p><h3>What’s Near Me</h3><p>A location-based web app for UBC students to find nearby restaurants, study spots, and campus resources.</p><p><small>Next.js · OpenStreetMap · Tailwind CSS</small></p><p><a href="https://whats-near-me.vercel.app/">Try What’s Near Me ↗</a> · <a href="https://github.com/hhdning21/whats-near-me">View source on GitHub ↗</a></p></div></template>
+<template id="nearby-doc"><div class="document"><p><small>PROJECT 01 / CAMPUS DISCOVERY</small></p><h3>What’s Near Me</h3><p>A location-based web app for UBC students to find nearby restaurants, study spots, and campus resources.</p><p><small>Next.js · OpenStreetMap · Tailwind CSS</small></p><p><a class="raised launch" href="https://whats-near-me.vercel.app/">Launch ↗</a> <a href="https://github.com/hhdning21/whats-near-me">View source on GitHub ↗</a></p></div></template>
 <template id="asl-doc"><div class="document"><p><small>PROJECT 02 / COMPUTER VISION</small></p><h3>ASL Translator</h3><p>A webcam-based experiment that recognizes American Sign Language gestures using MediaPipe hand landmarks and a random forest classifier.</p><p><small>Python · MediaPipe · scikit-learn</small></p><p><a href="https://github.com/hhdning21/ASL-translator">View source on GitHub ↗</a></p></div></template>
-<template id="furry-doc"><div class="document"><p><small>PROJECT 03 / AUDIO &amp; INTERACTION</small></p><h3>Furry Sound</h3><p>A music visualizer and four-lane rhythm game with visual beat cues, a high-contrast mode, and keyboard or touch controls.</p><p><small>JavaScript · Web Audio API</small></p><p><a href="https://www.furrysound.tech/">Play Furry Sound ↗</a> · <a href="https://github.com/hhdning21/furry-sound">View source on GitHub ↗</a></p></div></template>
+<template id="furry-doc"><div class="document"><p><small>PROJECT 03 / AUDIO &amp; INTERACTION</small></p><h3>Furry Sound</h3><p>A music visualizer and four-lane rhythm game with visual beat cues, a high-contrast mode, and keyboard or touch controls.</p><p><small>JavaScript · Web Audio API</small></p><p><a class="raised launch" href="https://www.furrysound.tech/">Play ↗</a> <a href="https://github.com/hhdning21/furry-sound">View source on GitHub ↗</a></p></div></template>
 <template id="pet-adopter-doc"><div class="document"><p><small>PROJECT 04 / DESKTOP APP</small></p><h3>Pet Adaptation App</h3><p>A Java desktop app for browsing pets available for adoption, submitting applications, and reporting stray animals. Adopters can record their pets’ stories, and the app saves data locally as JSON.</p><p><small>Java · JSON</small></p><p><a href="https://github.com/hhdning21/pet_adoption_app">View source on GitHub ↗</a></p></div></template>
 </body>
 </html>
