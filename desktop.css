@@ -94,6 +94,7 @@ button:focus-visible,a:focus-visible{outline:1px dotted currentColor;outline-off
 [data-theme=dark] .file:hover{background:#3d4558;border-color:#66708a}
 [data-theme=dark] .files.list .file{border-bottom-color:#51515b}
 [data-theme=dark] :is(.sidebar p,.files .label,.file small,.document small,.toolbar button:disabled){color:#c8c5cc}
+.document a{color:#0000b8}
 [data-theme=dark] .document a{color:#a7c9ff}
 [data-theme=dark] :is(.toolbar,.start-menu hr,.popup hr){border-color:#686772}
 /* XP arrow cursor. Interactive elements keep their own cursor. */
@@ -105,3 +106,9 @@ button:focus-visible,a:focus-visible{outline:1px dotted currentColor;outline-off
 @media(pointer:fine){
   button:not(:disabled),a[href]{cursor:url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2221%22%20height=%2225%22%20viewBox=%220%200%2021%2025%22%20shape-rendering=%22crispEdges%22%3E%3Cpath%20fill=%22%23171717%22%20d=%22M6%201h3v1h1v5h2v1h3v1h2v1h1v1h1v7h-1v3h-1v3H6v-3H5v-2H4v-2H3v-2H2v-1H1v-4h4V2h1z%22/%3E%3Cpath%20fill=%22%23fff%22%20d=%22M6%202h3v9h1V8h2v3h1V9h2v3h1v-2h1v1h1v7h-1v3h-1v2H7v-2H6v-2H5v-2H4v-2H3v-1H2v-3h3v1h1v3h1V2z%22/%3E%3C/svg%3E") 7 1,pointer}
 }
+
+.terminal{flex:1;min-height:0;margin-top:4px;padding:12px;overflow:auto;cursor:text;background:#171b19;color:#c9e9b7;border:2px solid;border-color:#666 #dadada #dadada #666;line-height:1.55}
+.terminal-log{white-space:pre-wrap;overflow-wrap:anywhere}
+.terminal-line{display:flex;align-items:baseline;gap:.6em}
+.terminal-line input{flex:1;min-width:0;border:0;padding:0;background:transparent;color:#ecf4e8;caret-color:#b7e2a8}
+.terminal-line input:focus-visible{outline:1px dotted #b7e2a8;outline-offset:1px}

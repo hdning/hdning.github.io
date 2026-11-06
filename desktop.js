@@ -21,9 +21,10 @@ const entries = {
   asl: {title:'ASL Translator', file:'02 ASL Translator', icon:'artwork', type:'Computer vision', category:'lab'},
   furry: {title:'Furry Sound', file:'03 Furry Sound', icon:'artwork', type:'Audio & interaction', category:'lab'},
   'pet-adopter': {title:'Pet Adaptation App', file:'04 Pet Adaptation App', icon:'artwork', type:'Desktop app', category:'apps'},
-  about: {title:'About.txt', icon:'note', type:'Text document'},
+  about: {title:'About Me.txt', icon:'note', type:'Text document'},
   contact: {title:'Contact', icon:'mail', type:'Contact card'},
   settings: {title:'Display Properties', icon:'computer'},
+  terminal: {title:'Terminal', icon:'terminal'},
   help: {title:'Desktop Help', icon:'note'}
 };
 function icon(name) {
@@ -65,7 +66,7 @@ function focusFrame(frame, keyboard = false) {
   frame.node.style.zIndex = frame.order;
   frame.node.classList.add('active');
   frame.task.setAttribute('aria-pressed','true');
-  if (keyboard) frame.node.focus({preventScroll:true});
+  if (keyboard) (frame.node.querySelector('.terminal-line input') ?? frame.node).focus({preventScroll:true});
 }
 function fallbackFocus() {
   const visible = [...frames.values()].filter(frame => !frame.node.hidden);
@@ -137,19 +138,72 @@ function openFrame(id) {
   frames.set(id,frame);
   taskbar.append(task);
   desktop.append(node);
+  if (id === 'terminal') setupTerminal(frame);
   const narrow = desktop.clientWidth <= 720;
   const margin = narrow ? 7 : 118;
   const top = narrow ? 77 : 44;
   const explorer = Boolean(entry.files);
   const project = entry.icon === 'artwork';
-  const width = explorer ? 720 : project ? 565 : 435;
-  const height = explorer ? 399 : project ? 460 : 242;
+  const width = explorer ? 720 : project || id === 'terminal' ? 565 : 435;
+  const height = explorer ? 399 : project ? 460 : id === 'terminal' ? 330 : 242;
   node.style.width = Math.min(width,desktop.clientWidth - margin - 7) + 'px';
   node.style.height = Math.max(155,Math.min(height,desktop.clientHeight - top - 9)) + 'px';
   const offset = ((frames.size-1)%5)*23;
   place(frame,Math.max(margin,(desktop.clientWidth-node.offsetWidth)*.39)+offset,top+offset);
   if (id === 'settings') updateTheme(theme);
   focusFrame(frame,true);
+}
+function setupTerminal(frame) {
+  const terminal = frame.node.querySelector('.terminal');
+  const log = terminal.querySelector('.terminal-log');
+  const form = terminal.querySelector('form');
+  const input = form.querySelector('input');
+  const history = [];
+  let position = 0;
+  let draft = '';
+  const commands = {
+    help: ['List commands', () => print(Object.entries(commands).map(([name, [description]]) =>
+      name.padEnd(10) + description).join('\n'))],
+    dir: ['List selected projects', () => print(entries.work.files.map((id,i) => `${i+1}  ${entries[id].title}`).join('\n'))],
+    open: ['Open a project, e.g. open 2', (arg) => {
+      const id = entries.work.files.find((id,i) => arg === String(i+1) || arg === entries[id].title.toLowerCase());
+      if (id) openFrame(id);
+      else print('Project not found. Type dir to list projects.');
+    }],
+    projects: ['Open Selected Project', () => openFrame('work')],
+    about: ['Open About Me.txt', () => openFrame('about')],
+    contact: ['Open Contact', () => openFrame('contact')],
+    cls: ['Clear the screen', () => log.replaceChildren()],
+    exit: ['Close this terminal', () => closeFrame(frame)]
+  };
+
+  function print(text) {
+    const line = document.createElement('div');
+    line.textContent = text;
+    log.append(line);
+  }
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const command = input.value.trim();
+    input.value = '';
+    if (!command) return;
+    history.push(command);
+    position = history.length;
+    draft = '';
+    print('C:\\Portfolio> ' + command);
+    const [name, ...args] = command.toLowerCase().split(/\s+/);
+    if (Object.hasOwn(commands,name)) commands[name][1](args.join(' '));
+    else print('Unknown command. Type help to see what you can run.');
+    terminal.scrollTop = terminal.scrollHeight;
+  });
+  input.addEventListener('keydown', event => {
+    if (!history.length || !['ArrowUp','ArrowDown'].includes(event.key)) return;
+    event.preventDefault();
+    if (position === history.length) draft = input.value;
+    position = Math.max(0, Math.min(history.length, position + (event.key === 'ArrowUp' ? -1 : 1)));
+    input.value = history[position] ?? draft;
+    input.setSelectionRange(input.value.length,input.value.length);
+  });
 }
 function setView(frame, mode) {
   frame.node.querySelector('.files').classList.toggle('list',mode === 'list');
@@ -225,7 +279,7 @@ desktop.addEventListener('dblclick',event => {
 desktop.addEventListener('contextmenu',event => {
   if (event.target.closest('.window,button,.popup')) return;
   event.preventDefault();
-  showPopup([button('Show desktop','desktop','show'),button('Display Properties','open','settings','computer')],event.clientX,event.clientY);
+  showPopup([button('Show desktop','desktop','show'),button('Open Terminal','open','terminal','terminal'),button('Display Properties','open','settings','computer')],event.clientX,event.clientY);
 });
 document.addEventListener('focusin',event => {
   const node = event.target.closest('.window');
